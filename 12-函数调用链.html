@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12-函数调用链 | FreeSWITCH</title>
+  <style>
+    body { margin: 0; padding: 20px; background: #f5f7fb; font-family: Arial, sans-serif; }
+    .container { max-width: 1400px; margin: 0 auto; background: white; border: 1px solid #dfe7f1; border-radius: 12px; padding: 22px; }
+    h1, h2 { color: #1f2937; }
+    .chain { border: 1px solid #dfe7f1; border-radius: 10px; background: #fafcff; padding: 18px; margin: 16px 0; }
+    .step { display: inline-block; background: #edf4ff; border: 1px solid #bfd7ff; border-radius: 8px; padding: 10px 12px; margin: 6px; font-weight: 700; color: #1f3c88; }
+    .arrow { display: inline-block; margin: 0 6px; color: #4b5563; font-weight: 700; }
+    .ref { background: #f0f4ff; border-left: 4px solid #667eea; padding: 10px 12px; border-radius: 4px; font-size: 12px; font-family: monospace; margin-top: 8px; }
+    .note { background: #fff7db; border-left: 4px solid #f0ad4e; padding: 10px 12px; border-radius: 4px; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>12-函数调用链</h1>
+
+    <div class="chain">
+      <h2>启动调用链</h2>
+      <div class="step">main()</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_core_set_globals()</div>
+      <div class="arrow">→</div>
+      <div class="step">fspr_initialize()</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_core_init_and_modload()</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_core_runtime_loop()</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_core_destroy()</div>
+      <div class="ref">src/switch.c:489,1162,1043-1046,1201,1228,1230</div>
+    </div>
+
+    <div class="chain">
+      <h2>模块加载链</h2>
+      <div class="step">switch_core_init_and_modload()</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_loadable_module_init()</div>
+      <div class="arrow">→</div>
+      <div class="step">load module .so</div>
+      <div class="arrow">→</div>
+      <div class="step">register interfaces</div>
+      <div class="arrow">→</div>
+      <div class="step">module ready</div>
+      <div class="ref">src/switch.c:1201; src/switch_loadable_module.c; src/mod/</div>
+    </div>
+
+    <div class="chain">
+      <h2>会话和通道链</h2>
+      <div class="step">switch_core_session_new()</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_channel_create()</div>
+      <div class="arrow">→</div>
+      <div class="step">channel state machine</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_core_media_set_flag()</div>
+      <div class="arrow">→</div>
+      <div class="step">event dispatch</div>
+      <div class="ref">src/switch_core_session.c; src/switch_channel.c; src/switch_event.c</div>
+    </div>
+
+    <div class="chain">
+      <h2>媒体链</h2>
+      <div class="step">switch_core_media</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_codec_t</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_frame_t</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_rtp_t</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_jb_t</div>
+      <div class="ref">src/switch_core_media.c; src/switch_rtp.c; src/switch_jitterbuffer.c</div>
+    </div>
+
+    <div class="chain">
+      <h2>ASR 接入链</h2>
+      <div class="step">switch_core_asr_open()</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_asr_interface_t</div>
+      <div class="arrow">→</div>
+      <div class="step">asr_feed()</div>
+      <div class="arrow">→</div>
+      <div class="step">asr_check_results()</div>
+      <div class="arrow">→</div>
+      <div class="step">asr_get_results()</div>
+      <div class="ref">src/switch_core_asr.c; src/switch_ivr_async.c</div>
+    </div>
+
+    <div class="note">
+      结论：FreeSWITCH 的调用链不是“模块随手扩展”，而是“主程序启动 → 初始化核心 → 模块注册 → session/channel 创建 → media 流处理 → ASR 接口调用 → 业务逻辑”。这条链路与真实代码高度一致。
+    </div>
+  </div>
+</body>
+</html>

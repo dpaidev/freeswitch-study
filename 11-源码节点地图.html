@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>11-源码节点地图 | FreeSWITCH</title>
+  <style>
+    body { margin: 0; padding: 20px; background: #f5f7fb; font-family: Arial, sans-serif; }
+    .container { max-width: 1500px; margin: 0 auto; background: #ffffff; border: 1px solid #dfe7f1; border-radius: 12px; padding: 20px; }
+    h1, h2, h3 { color: #1f2937; }
+    .box { border: 1px solid #dfe7f1; border-radius: 10px; background: #fafcff; padding: 18px; margin: 16px 0; }
+    .node { display: inline-block; background: #edf4ff; border: 1px solid #bfd7ff; border-radius: 8px; padding: 10px 14px; margin: 6px; min-width: 150px; text-align: center; font-weight: 700; color: #1f3c88; }
+    .line { margin: 18px 0; color: #374151; line-height: 1.9; }
+    .ref { background: #f0f4ff; border-left: 4px solid #667eea; padding: 10px 12px; border-radius: 4px; font-family: monospace; font-size: 12px; }
+    .tag { display: inline-block; background: #eefaf2; border: 1px solid #bfe7cf; color: #1d5c3a; padding: 4px 8px; border-radius: 6px; margin: 4px 6px 4px 0; font-size: 12px; }
+    svg { width: 100%; height: auto; border: 1px solid #dfe7f1; border-radius: 8px; background: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>11-源码节点地图</h1>
+
+    <div class="box">
+      <h2>目的</h2>
+      <p>把 FreeSWITCH 的启动、初始化、模块加载、运行循环、退出销毁定义成可视化节点。所有节点均有源码依据。</p>
+    </div>
+
+    <div class="box">
+      <h2>节点列表</h2>
+      <div class="node">main()</div>
+      <div class="node">switch_core_set_globals()</div>
+      <div class="node">fspr_initialize()</div>
+      <div class="node">switch_core_init_and_modload()</div>
+      <div class="node">switch_core_runtime_loop()</div>
+      <div class="node">switch_core_destroy()</div>
+      <div class="node">switch_loadable_module</div>
+      <div class="node">switch_core_session</div>
+      <div class="node">switch_channel</div>
+      <div class="node">switch_event</div>
+      <div class="node">switch_core_media</div>
+    </div>
+
+    <div class="box">
+      <h2>关系图</h2>
+      <svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <path d="M0,0 L10,3 L0,6 z" fill="#6b7280"/>
+          </marker>
+          <style>
+            .n { fill: #edf4ff; stroke: #7aa6ff; stroke-width: 2; }
+            .r { fill: #eafaf1; stroke: #8ac19c; stroke-width: 2; }
+            .t { font: 700 14px Arial; fill: #1f2937; }
+            .l { font: 12px Arial; fill: #4b5563; }
+            .a { stroke: #6b7280; stroke-width: 2; fill: none; marker-end: url(#arr); }
+          </style>
+        </defs>
+
+        <rect class="n" x="40" y="50" width="180" height="70" rx="10"/>
+        <text class="t" x="130" y="90" text-anchor="middle">main()</text>
+
+        <rect class="n" x="280" y="50" width="220" height="70" rx="10"/>
+        <text class="t" x="390" y="90" text-anchor="middle">parse argv / flags</text>
+
+        <rect class="n" x="560" y="50" width="220" height="70" rx="10"/>
+        <text class="t" x="670" y="90" text-anchor="middle">switch_core_set_globals()</text>
+
+        <rect class="r" x="860" y="50" width="220" height="70" rx="10"/>
+        <text class="t" x="970" y="90" text-anchor="middle">fspr_initialize()</text>
+
+        <path class="a" d="M220 85 L280 85"/>
+        <path class="a" d="M500 85 L560 85"/>
+        <path class="a" d="M780 85 L860 85"/>
+
+        <rect class="n" x="200" y="210" width="260" height="80" rx="10"/>
+        <text class="t" x="330" y="250" text-anchor="middle">switch_core_init_and_modload()</text>
+        <text class="l" x="330" y="270" text-anchor="middle">src/switch.c:1201</text>
+
+        <rect class="n" x="520" y="210" width="220" height="80" rx="10"/>
+        <text class="t" x="630" y="250" text-anchor="middle">switch_loadable_module</text>
+        <text class="l" x="630" y="270" text-anchor="middle">src/switch_loadable_module.c</text>
+
+        <rect class="n" x="800" y="210" width="220" height="80" rx="10"/>
+        <text class="t" x="910" y="250" text-anchor="middle">switch_core_session</text>
+        <text class="l" x="910" y="270" text-anchor="middle">src/switch_core_session.c</text>
+
+        <path class="a" d="M390 120 L390 210"/>
+        <path class="a" d="M630 120 L630 210"/>
+        <path class="a" d="M910 120 L910 210"/>
+
+        <rect class="n" x="200" y="370" width="260" height="80" rx="10"/>
+        <text class="t" x="330" y="410" text-anchor="middle">switch_core_runtime_loop()</text>
+        <text class="l" x="330" y="430" text-anchor="middle">src/switch.c:1228</text>
+
+        <rect class="n" x="520" y="370" width="220" height="80" rx="10"/>
+        <text class="t" x="630" y="410" text-anchor="middle">switch_channel</text>
+        <text class="l" x="630" y="430" text-anchor="middle">src/switch_channel.c</text>
+
+        <rect class="n" x="800" y="370" width="220" height="80" rx="10"/>
+        <text class="t" x="910" y="410" text-anchor="middle">switch_event</text>
+        <text class="l" x="910" y="430" text-anchor="middle">src/switch_event.c</text>
+
+        <path class="a" d="M330 290 L330 370"/>
+        <path class="a" d="M630 290 L630 370"/>
+        <path class="a" d="M910 290 L910 370"/>
+
+        <rect class="r" x="430" y="540" width="300" height="90" rx="10"/>
+        <text class="t" x="580" y="580" text-anchor="middle">switch_core_destroy()</text>
+        <text class="l" x="580" y="606" text-anchor="middle">src/switch.c:1230</text>
+
+        <path class="a" d="M330 450 L330 590 L430 590"/>
+        <path class="a" d="M630 450 L630 590 L730 590"/>
+      </svg>
+    </div>
+
+    <div class="box">
+      <h2>源码依据</h2>
+      <div class="ref">src/switch.c:489 - int main(int argc, char *argv[])</div>
+      <div class="ref">src/switch.c:1162 - switch_core_set_globals();</div>
+      <div class="ref">src/switch.c:1043-1046 - fspr_initialize();</div>
+      <div class="ref">src/switch.c:1201 - switch_core_init_and_modload(...)</div>
+      <div class="ref">src/switch.c:1228 - switch_core_runtime_loop(nc);</div>
+      <div class="ref">src/switch.c:1230 - destroy_status = switch_core_destroy();</div>
+      <div class="ref">src/switch_loadable_module.c - module loader entry</div>
+      <div class="ref">src/switch_core_session.c - session object</div>
+      <div class="ref">src/switch_channel.c - channel object</div>
+      <div class="ref">src/switch_event.c - event object</div>
+    </div>
+  </div>
+</body>
+</html>
