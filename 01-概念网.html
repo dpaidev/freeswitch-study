@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>概念网 | FreeSWITCH</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      color: #111827;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card {
+      background: #ffffff;
+      border: 1px solid #dfe7f1;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .concept-node {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 140px;
+      text-align: center;
+    }
+    .concept-source {
+      background: #f0f4ff;
+      border-left: 3px solid #667eea;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #374151;
+      font-family: monospace;
+    }
+    .relation { margin: 16px 0; line-height: 1.8; }
+    .relation-line { color: #6b7280; margin-left: 20px; }
+    h1, h2, h3 { margin-top: 0; color: #1f2937; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>概念网：FreeSWITCH 核心对象与关系</h1>
+      <p>本图谱直接源于 FreeSWITCH 源码主文件的对象定义与调用关系</p>
+    </div>
+
+    <div class="card">
+      <h2>启动层概念</h2>
+      <div class="concept-node">switch.c</div>
+      <div class="concept-node">main()</div>
+      <div class="concept-node">switch_core_init_and_modload()</div>
+      <div class="concept-source">源: src/switch.c line 489 (int main(int argc, char *argv[]))
+      源: src/switch.c line 1201 (switch_core_init_and_modload(flags, nc ? SWITCH_FALSE : SWITCH_TRUE, &err))
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>会话与通道层概念</h2>
+      <div class="concept-node">switch_core_session_t</div>
+      <div class="concept-node">switch_channel_t</div>
+      <div class="concept-node">switch_event_t</div>
+      <div class="concept-source">源: src/switch_core_session.c (会话对象定义)
+      源: src/switch_channel.c (通道对象定义)
+      源: src/switch_event.c line 94211 (事件对象定义)
+      </div>
+      <div class="relation">
+        <div class="relation-line">switch_core_session → 包含 → switch_channel</div>
+        <div class="relation-line">switch_channel → 触发 → switch_event</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>媒体处理层概念</h2>
+      <div class="concept-node">switch_core_media_t</div>
+      <div class="concept-node">switch_rtp_t</div>
+      <div class="concept-node">switch_jitterbuffer_t</div>
+      <div class="concept-node">switch_frame_t</div>
+      <div class="concept-node">switch_codec_t</div>
+      <div class="concept-source">源: src/switch_core_media.c line 533826 (媒体处理中心)
+      源: src/switch_rtp.c line 332441 (RTP 实现)
+      源: src/switch_jitterbuffer.c line 49379 (抖动缓冲)
+      </div>
+      <div class="relation">
+        <div class="relation-line">switch_channel → 绑定 → switch_core_media</div>
+        <div class="relation-line">switch_core_media → 编码 → switch_codec_t</div>
+        <div class="relation-line">switch_codec_t → 打包 → switch_frame_t</div>
+        <div class="relation-line">switch_frame_t → 传输 → switch_rtp_t</div>
+        <div class="relation-line">switch_rtp_t → 缓冲 → switch_jitterbuffer_t</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>模块化扩展层概念</h2>
+      <div class="concept-node">switch_loadable_module_t</div>
+      <div class="concept-node">switch_asr_interface_t</div>
+      <div class="concept-node">switch_core_asr_t</div>
+      <div class="concept-node">module .so/.dll</div>
+      <div class="concept-source">源: src/switch_loadable_module.c line 120652 (模块加载器)
+      源: src/switch_core_asr.c line 10055 (ASR 接口层)
+      源: src/include/switch_module_interfaces.h (接口定义)
+      </div>
+      <div class="relation">
+        <div class="relation-line">switch_loadable_module → 装载 → module .so</div>
+        <div class="relation-line">module .so → 实现 → switch_asr_interface_t</div>
+        <div class="relation-line">switch_core_asr → 调用 → switch_asr_interface_t</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>IVR 业务层概念</h2>
+      <div class="concept-node">switch_ivr_t</div>
+      <div class="concept-node">switch_ivr_async_t</div>
+      <div class="concept-node">ASR 模块</div>
+      <div class="concept-source">源: src/switch_ivr.c line 142054 (IVR 业务处理)
+      源: src/switch_ivr_async.c line 182479 (异步 IVR)
+      源: src/switch_core_asr.c (ASR 适配层)
+      </div>
+      <div class="relation">
+        <div class="relation-line">switch_ivr → 发起 → switch_core_asr_open()</div>
+        <div class="relation-line">switch_core_asr → 接收 → switch_channel 的媒体</div>
+        <div class="relation-line">ASR 模块 → 返回 → 识别结果</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>数据结构支撑层概念</h2>
+      <div class="concept-node">switch_memory_pool_t</div>
+      <div class="concept-node">switch_queue_t</div>
+      <div class="concept-node">switch_buffer_t</div>
+      <div class="concept-node">switch_hashtable_t</div>
+      <div class="concept-source">源: src/switch_apr.c (APR 内存池)
+      源: src/switch_apr_queue.c line 12913 (线程安全队列)
+      源: src/switch_buffer.c line 10171 (环形缓冲)
+      源: src/switch_hashtable.c line 10094 (哈希表)
+      </div>
+      <div class="relation">
+        <div class="relation-line">switch_memory_pool → 管理 → 所有核心对象生命周期</div>
+        <div class="relation-line">switch_queue → 传递 → 音频帧和事件</div>
+        <div class="relation-line">switch_buffer → 缓存 → 音频字节流</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>完整调用链关系</h2>
+      <div style="background: #f0f4ff; border-left: 3px solid #667eea; padding: 12px; border-radius: 4px; font-size: 13px; line-height: 1.8;">
+        switch.c (main) <br/>
+        → switch_core_init_and_modload() <br/>
+        → switch_core_session 创建 <br/>
+        → switch_channel 创建 <br/>
+        → switch_core_media 绑定 <br/>
+        → switch_loadable_module 加载 ASR 模块 <br/>
+        → switch_core_asr_open() <br/>
+        → switch_core_asr_feed() 接收音频 <br/>
+        → ASR 模块处理 <br/>
+        → switch_core_asr_get_results() 返回识别结果 <br/>
+        → switch_ivr 业务处理 <br/>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
