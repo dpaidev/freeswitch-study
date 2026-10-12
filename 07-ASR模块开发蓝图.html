@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASR 模块开发蓝图 | FreeSWITCH</title>
+  <style>
+    body { margin: 0; padding: 32px; font-family: Arial, sans-serif; background: #f7f9fc; color: #111827; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid #dfe7f1; border-radius: 12px; padding: 22px; margin-bottom: 18px; }
+    h1, h2, h3 { margin-top: 0; }
+    ul, ol { line-height: 1.9; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>ASR 模块开发蓝图</h1>
+      <p>目标：将 FreeSWITCH 中的音频帧送入流式 ASR 模块，并将识别结果返回给 IVR 或业务逻辑。</p>
+    </div>
+
+    <div class="card">
+      <h2>模块上下文</h2>
+      <ul>
+        <li>switch_asr_handle_t：ASR 实例句柄</li>
+        <li>switch_memory_pool_t：对象内存池</li>
+        <li>switch_queue_t：传输结果队列</li>
+        <li>switch_frame_t：音频帧</li>
+        <li>remote_asr_client：远端 ASR 服务客户端</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>主要接口</h2>
+      <ul>
+        <li>asr_open()</li>
+        <li>asr_close()</li>
+        <li>asr_feed()</li>
+        <li>asr_check_results()</li>
+        <li>asr_get_results()</li>
+        <li>asr_load_grammar()</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>主处理流程</h2>
+      <ol>
+        <li>收到音频帧</li>
+        <li>确认采样率</li>
+        <li>进行必要重采样</li>
+        <li>转换为远端 ASR 接收格式</li>
+        <li>发送到远端 ASR 服务</li>
+        <li>异步接收 partial / final result</li>
+        <li>写入结果队列</li>
+        <li>调用 get_results() 返回 XML / 文本</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>关键代码来源</h2>
+      <ul>
+        <li>src/switch_core_asr.c</li>
+        <li>src/switch_ivr_async.c</li>
+        <li>src/mod/asr_tts/</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

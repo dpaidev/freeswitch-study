@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块扩展地图 | FreeSWITCH</title>
+  <style>
+    body { margin: 0; padding: 32px; font-family: Arial, sans-serif; background: #f7f9fc; color: #111827; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid #dfe7f1; border-radius: 12px; padding: 22px; margin-bottom: 18px; }
+    .node { display: inline-block; background: #eef5ff; border: 1px solid #cfe0ff; color: #1f3c88; padding: 10px 14px; border-radius: 8px; margin: 8px; min-width: 150px; text-align: center; font-weight: 600; }
+    h1, h2 { margin-top: 0; }
+    ul { line-height: 1.9; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>模块扩展地图</h1>
+      <p>FreeSWITCH 的扩展能力集中在模块层；模块通过接口注册并被核心引擎调用。</p>
+    </div>
+
+    <div class="card">
+      <h2>模块层结构</h2>
+      <div class="node">核心引擎</div>
+      <div class="node">接口层</div>
+      <div class="node">动态模块</div>
+      <div class="node">配置加载</div>
+      <div class="node">业务流程</div>
+    </div>
+
+    <div class="card">
+      <h2>已知模块目录</h2>
+      <div class="node">applications</div>
+      <div class="node">asr_tts</div>
+      <div class="node">codecs</div>
+      <div class="node">endpoints</div>
+      <div class="node">databases</div>
+      <div class="node">languages</div>
+      <div class="node">event_handlers</div>
+      <div class="node">xml_int</div>
+    </div>
+
+    <div class="card">
+      <h2>核心扩展入口</h2>
+      <ul>
+        <li>src/switch_loadable_module.c：模块加载器</li>
+        <li>src/switch_core_asr.c：ASR接口层</li>
+        <li>src/switch_ivr_async.c：异步 IVR</li>
+        <li>src/mod/asr_tts/：ASR/TTS 模块目录</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>扩展方式</h2>
+      <ul>
+        <li>实现接口对象</li>
+        <li>在模块目录中注册模块</li>
+        <li>由核心通过 switch_loadable_module 加载</li>
+        <li>在业务时由 switch_core_asr / switch_ivr 进入</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

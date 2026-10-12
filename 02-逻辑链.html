@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>逻辑链 | FreeSWITCH</title>
+  <style>
+    body { margin: 0; padding: 32px; font-family: Arial, sans-serif; background: #f7f9fc; color: #111827; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid #dfe7f1; border-radius: 12px; padding: 22px; margin-bottom: 18px; }
+    .step { display: inline-block; background: #eef6ff; border: 1px solid #cfe0ff; color: #1f3c88; border-radius: 8px; padding: 8px 12px; margin: 6px; font-weight: 600; }
+    .arrow { display: inline-block; margin: 0 6px; color: #64748b; font-weight: 700; }
+    h1, h2 { margin-top: 0; }
+    .source { background: #f0f4ff; border-left: 3px solid #667eea; padding: 12px; border-radius: 4px; margin-top: 8px; font-size: 12px; color: #374151; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>逻辑链：启动、会话、媒体、模块、ASR</h1>
+      <p>以下逻辑链均对应 FreeSWITCH 源码主流程。</p>
+    </div>
+
+    <div class="card">
+      <h2>启动链</h2>
+      <div class="step">main()</div>
+      <div class="arrow">→</div>
+      <div class="step">命令行参数</div>
+      <div class="arrow">→</div>
+      <div class="step">APR 初始化</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_core_set_globals()</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_core_init_and_modload()</div>
+      <div class="arrow">→</div>
+      <div class="step">runtime loop</div>
+      <div class="source">源: src/switch.c, main()；src/switch.c, switch_core_init_and_modload(flags,...)</div>
+    </div>
+
+    <div class="card">
+      <h2>会话链</h2>
+      <div class="step">session 创建</div>
+      <div class="arrow">→</div>
+      <div class="step">channel 创建</div>
+      <div class="arrow">→</div>
+      <div class="step">状态机转换</div>
+      <div class="arrow">→</div>
+      <div class="step">媒体绑定</div>
+      <div class="arrow">→</div>
+      <div class="step">bridge / 控制</div>
+      <div class="arrow">→</div>
+      <div class="step">hangup / destroy</div>
+      <div class="source">源: src/switch_core_session.c；src/switch_channel.c；src/switch_core.c</div>
+    </div>
+
+    <div class="card">
+      <h2>媒体链</h2>
+      <div class="step">音频帧输入</div>
+      <div class="arrow">→</div>
+      <div class="step">codec</div>
+      <div class="arrow">→</div>
+      <div class="step">resample</div>
+      <div class="arrow">→</div>
+      <div class="step">jitterbuffer</div>
+      <div class="arrow">→</div>
+      <div class="step">RTP 发送</div>
+      <div class="arrow">→</div>
+      <div class="step">接收方解码</div>
+      <div class="source">源: src/switch_core_media.c；src/switch_rtp.c；src/switch_jitterbuffer.c；src/switch_resample.c</div>
+    </div>
+
+    <div class="card">
+      <h2>模块链</h2>
+      <div class="step">switch_loadable_module</div>
+      <div class="arrow">→</div>
+      <div class="step">读取 .so/.dll</div>
+      <div class="arrow">→</div>
+      <div class="step">注册接口</div>
+      <div class="arrow">→</div>
+      <div class="step">核心调用接口</div>
+      <div class="arrow">→</div>
+      <div class="step">ASR/TTS/Codec/Endpoint</div>
+      <div class="source">源: src/switch_loadable_module.c；src/mod/</div>
+    </div>
+
+    <div class="card">
+      <h2>ASR 链</h2>
+      <div class="step">switch_core_asr_open()</div>
+      <div class="arrow">→</div>
+      <div class="step">模块接口获取</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_core_asr_feed()</div>
+      <div class="arrow">→</div>
+      <div class="step">结果检查</div>
+      <div class="arrow">→</div>
+      <div class="step">switch_core_asr_get_results()</div>
+      <div class="arrow">→</div>
+      <div class="step">IVR / 业务处理</div>
+      <div class="source">源: src/switch_core_asr.c；src/switch_ivr_async.c</div>
+    </div>
+  </div>
+</body>
+</html>

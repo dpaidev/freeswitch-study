@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>源码阅读顺序 | FreeSWITCH</title>
+  <style>
+    body { margin: 0; padding: 32px; font-family: Arial, sans-serif; background: #f7f9fc; color: #111827; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid #dfe7f1; border-radius: 12px; padding: 22px; margin-bottom: 18px; }
+    .step { display: inline-block; background: #eef6ff; border: 1px solid #cfe0ff; color: #1f3c88; padding: 10px 14px; margin: 8px; border-radius: 8px; font-weight: 600; }
+    h1, h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>源码阅读顺序</h1>
+    </div>
+
+    <div class="card">
+      <h2>第一阶段</h2>
+      <div class="step">src/switch.c</div>
+      <div class="step">src/include/switch.h</div>
+      <div class="step">src/switch_core.c</div>
+    </div>
+
+    <div class="card">
+      <h2>第二阶段</h2>
+      <div class="step">src/switch_core_session.c</div>
+      <div class="step">src/switch_channel.c</div>
+      <div class="step">src/switch_event.c</div>
+    </div>
+
+    <div class="card">
+      <h2>第三阶段</h2>
+      <div class="step">src/switch_core_media.c</div>
+      <div class="step">src/switch_rtp.c</div>
+      <div class="step">src/switch_jitterbuffer.c</div>
+      <div class="step">src/switch_resample.c</div>
+    </div>
+
+    <div class="card">
+      <h2>第四阶段</h2>
+      <div class="step">src/switch_loadable_module.c</div>
+      <div class="step">src/switch_core_asr.c</div>
+      <div class="step">src/switch_ivr_async.c</div>
+      <div class="step">src/mod/asr_tts</div>
+    </div>
+
+    <div class="card">
+      <h2>第五阶段</h2>
+      <div class="step">最小 ASR 模块</div>
+      <div class="step">queue 和 worker</div>
+      <div class="step">采样率转换</div>
+      <div class="step">结果 XML 输出</div>
+    </div>
+  </div>
+</body>
+</html>

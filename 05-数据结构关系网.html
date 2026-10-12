@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>数据结构关系网 | FreeSWITCH</title>
+  <style>
+    body { margin: 0; padding: 32px; font-family: Arial, sans-serif; background: #f7f9fc; color: #111827; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid #dfe7f1; border-radius: 12px; padding: 22px; margin-bottom: 18px; }
+    .node { display: inline-block; background: #eef5ff; border: 1px solid #cfe0ff; color: #1f3c88; padding: 10px 14px; border-radius: 8px; margin: 8px; min-width: 180px; text-align: center; font-weight: 600; }
+    .edge { margin: 10px 0; color: #374151; line-height: 1.9; }
+    h1, h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>数据结构关系网</h1>
+      <p>结构关系展示了 FreeSWITCH 中对象如何相互连接、归属和传递数据。</p>
+    </div>
+
+    <div class="card">
+      <h2>对象节点</h2>
+      <div class="node">switch_core_session</div>
+      <div class="node">switch_channel</div>
+      <div class="node">switch_event</div>
+      <div class="node">switch_frame_t</div>
+      <div class="node">switch_codec_t</div>
+      <div class="node">switch_rtp_t</div>
+      <div class="node">switch_jb_t</div>
+      <div class="node">switch_buffer_t</div>
+      <div class="node">switch_loadable_module</div>
+      <div class="node">switch_asr_handle_t</div>
+      <div class="node">switch_memory_pool_t</div>
+      <div class="node">switch_queue_t</div>
+    </div>
+
+    <div class="card">
+      <h2>关系边</h2>
+      <div class="edge">switch_core_session → switch_channel</div>
+      <div class="edge">switch_channel → switch_event</div>
+      <div class="edge">switch_channel → switch_frame_t</div>
+      <div class="edge">switch_frame_t → switch_codec_t</div>
+      <div class="edge">switch_codec_t → switch_rtp_t</div>
+      <div class="edge">switch_rtp_t → switch_jb_t</div>
+      <div class="edge">switch_jb_t → switch_buffer_t</div>
+      <div class="edge">switch_loadable_module → switch_asr_handle_t</div>
+      <div class="edge">switch_asr_handle_t → switch_queue_t</div>
+      <div class="edge">switch_memory_pool_t → switch_core_session</div>
+      <div class="edge">switch_memory_pool_t → switch_channel</div>
+      <div class="edge">switch_memory_pool_t → switch_asr_handle_t</div>
+    </div>
+
+    <div class="card">
+      <h2>真实文件来源</h2>
+      <ul>
+        <li>src/switch_core_session.c</li>
+        <li>src/switch_channel.c</li>
+        <li>src/switch_event.c</li>
+        <li>src/switch_core_media.c</li>
+        <li>src/switch_rtp.c</li>
+        <li>src/switch_jitterbuffer.c</li>
+        <li>src/switch_loadable_module.c</li>
+        <li>src/switch_core_asr.c</li>
+        <li>src/switch_core_memory.c</li>
+        <li>src/switch_apr_queue.c</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

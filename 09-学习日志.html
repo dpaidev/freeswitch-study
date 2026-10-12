@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>学习日志 | FreeSWITCH</title>
+  <style>
+    body { margin: 0; padding: 32px; font-family: Arial, sans-serif; background: #f7f9fc; color: #111827; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid #dfe7f1; border-radius: 12px; padding: 22px; margin-bottom: 18px; }
+    h1, h2, h3 { margin-top: 0; }
+    p { line-height: 1.9; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>学习日志</h1>
+    </div>
+
+    <div class="card">
+      <h2>日志 1</h2>
+      <p>FreeSWITCH 的主入口在 src/switch.c，核心初始化在 switch_core 系列文件。启动流程较长，但结构清晰：参数解析、全局设置、模块加载、runtime loop。</p>
+    </div>
+
+    <div class="card">
+      <h2>日志 2</h2>
+      <p>session 和 channel 是自由电话业务的核心对象。session 表示一次会话，channel 表示一条通道，通道状态变化以事件方式反馈到系统内。</p>
+    </div>
+
+    <div class="card">
+      <h2>日志 3</h2>
+      <p>媒体通路在 src/switch_core_media.c、src/switch_rtp.c、src/switch_jitterbuffer.c 中形成闭环，说明 FreeSWITCH 的重点在实时媒体处理。</p>
+    </div>
+
+    <div class="card">
+      <h2>日志 4</h2>
+      <p>动态模块由 src/switch_loadable_module.c 管理，ASR 模块由 src/switch_core_asr.c 统一入口访问，模块化设计是 FreeSWITCH 的核心工程架构。</p>
+    </div>
+
+    <div class="card">
+      <h2>日志 5</h2>
+      <p>自定义流式 ASR 模块的重点落点是 switch_core_asr.c 的接口层与 ASR 模块实现。需要处理采样率、队列、异步线程和结果回收。</p>
+    </div>
+  </div>
+</body>
+</html>

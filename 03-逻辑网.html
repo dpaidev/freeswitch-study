@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>逻辑网 | FreeSWITCH</title>
+  <style>
+    body { margin: 0; padding: 32px; font-family: Arial, sans-serif; background: #f7f9fc; color: #111827; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid #dfe7f1; border-radius: 12px; padding: 22px; margin-bottom: 18px; }
+    .node { display: inline-block; background: #eef5ff; border: 1px solid #cfe0ff; padding: 10px 14px; margin: 8px; min-width: 150px; text-align: center; border-radius: 8px; font-weight: 600; color: #1f3c88; }
+    .edge { margin: 10px 0; line-height: 1.9; color: #374151; }
+    h1, h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>逻辑网：主干对象与边关系</h1>
+      <p>逻辑网用于展示 FreeSWITCH 主干对象之间的关系，不依赖抽象描述。</p>
+    </div>
+
+    <div class="card">
+      <h2>主干节点</h2>
+      <div class="node">main()</div>
+      <div class="node">switch_core</div>
+      <div class="node">session</div>
+      <div class="node">channel</div>
+      <div class="node">event</div>
+      <div class="node">media</div>
+      <div class="node">codec</div>
+      <div class="node">resample</div>
+      <div class="node">RTP</div>
+      <div class="node">jitterbuffer</div>
+      <div class="node">module loader</div>
+      <div class="node">ASR 接口</div>
+      <div class="node">IVR</div>
+      <div class="node">业务逻辑</div>
+    </div>
+
+    <div class="card">
+      <h2>主干边关系</h2>
+      <div class="edge">main() → switch_core</div>
+      <div class="edge">switch_core → session</div>
+      <div class="edge">session → channel</div>
+      <div class="edge">channel → event</div>
+      <div class="edge">channel → media</div>
+      <div class="edge">media → codec</div>
+      <div class="edge">codec → resample</div>
+      <div class="edge">resample → RTP</div>
+      <div class="edge">RTP → jitterbuffer</div>
+      <div class="edge">module loader → ASR 接口</div>
+      <div class="edge">ASR 接口 → IVR</div>
+      <div class="edge">IVR → 业务逻辑</div>
+    </div>
+
+    <div class="card">
+      <h2>真实文件对应</h2>
+      <ul>
+        <li>src/switch.c：main()</li>
+        <li>src/switch_core.c：switch_core</li>
+        <li>src/switch_core_session.c：session</li>
+        <li>src/switch_channel.c：channel</li>
+        <li>src/switch_event.c：event</li>
+        <li>src/switch_core_media.c：media</li>
+        <li>src/switch_rtp.c：RTP</li>
+        <li>src/switch_jitterbuffer.c：jitterbuffer</li>
+        <li>src/switch_loadable_module.c：module loader</li>
+        <li>src/switch_core_asr.c：ASR 接口</li>
+        <li>src/switch_ivr_async.c：IVR</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

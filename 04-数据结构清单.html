@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>数据结构清单 | FreeSWITCH</title>
+  <style>
+    body { margin: 0; padding: 32px; font-family: Arial, sans-serif; background: #f7f9fc; color: #111827; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid #dfe7f1; border-radius: 12px; padding: 22px; margin-bottom: 18px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #dfe7f1; padding: 10px 12px; text-align: left; vertical-align: top; }
+    th { background: #eef3ff; }
+    h1, h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>数据结构清单</h1>
+      <p>本清单覆盖 FreeSWITCH 中最关键的对象结构和对应主文件。</p>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>对象</th>
+            <th>主文件</th>
+            <th>用途</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>switch_core_session</td>
+            <td>src/switch_core_session.c</td>
+            <td>会话对象</td>
+            <td>承载一个通话或业务上下文</td>
+          </tr>
+          <tr>
+            <td>switch_channel</td>
+            <td>src/switch_channel.c</td>
+            <td>通道对象</td>
+            <td>表示通话的一条通道，带状态转换</td>
+          </tr>
+          <tr>
+            <td>switch_event</td>
+            <td>src/switch_event.c</td>
+            <td>事件对象</td>
+            <td>承载事件名、头字段、payload</td>
+          </tr>
+          <tr>
+            <td>switch_frame_t</td>
+            <td>src/switch_core_media.c</td>
+            <td>媒体帧对象</td>
+            <td>用于音频媒体流处理</td>
+          </tr>
+          <tr>
+            <td>switch_rtp_t</td>
+            <td>src/switch_rtp.c</td>
+            <td>RTP对象</td>
+            <td>负责 RTP payload 和时间戳</td>
+          </tr>
+          <tr>
+            <td>switch_codec_t</td>
+            <td>src/switch_core_codec.c</td>
+            <td>编解码器对象</td>
+            <td>负责 codec 编码和解码</td>
+          </tr>
+          <tr>
+            <td>switch_jb_t</td>
+            <td>src/switch_jitterbuffer.c</td>
+            <td>抖动缓冲对象</td>
+            <td>用于网络抖动、乱序处理</td>
+          </tr>
+          <tr>
+            <td>switch_buffer_t</td>
+            <td>src/switch_buffer.c</td>
+            <td>缓冲区对象</td>
+            <td>缓存音频字节流</td>
+          </tr>
+          <tr>
+            <td>switch_loadable_module</td>
+            <td>src/switch_loadable_module.c</td>
+            <td>模块对象</td>
+            <td>模块加载、注册、接口获取</td>
+          </tr>
+          <tr>
+            <td>switch_asr_handle_t</td>
+            <td>src/switch_core_asr.c</td>
+            <td>ASR 句柄对象</td>
+            <td>描述 ASR 实例的输入输出状态</td>
+          </tr>
+          <tr>
+            <td>switch_asr_interface_t</td>
+            <td>src/include/switch_module_interfaces.h</td>
+            <td>ASR 接口对象</td>
+            <td>定义 open/feed/check_results/get_results</td>
+          </tr>
+          <tr>
+            <td>switch_memory_pool_t</td>
+            <td>src/switch_core_memory.c</td>
+            <td>内存池对象</td>
+            <td>object lifecycle management</td>
+          </tr>
+          <tr>
+            <td>switch_queue_t</td>
+            <td>src/switch_apr_queue.c</td>
+            <td>队列对象</td>
+            <td>线程安全的消息/帧传递</td>
+          </tr>
+          <tr>
+            <td>switch_hashtable_t</td>
+            <td>src/switch_hashtable.c</td>
+            <td>哈希表对象</td>
+            <td>索引、映射、缓存</td>
+          </tr>
+          <tr>
+            <td>switch_config_t</td>
+            <td>src/switch_config.c</td>
+            <td>配置对象</td>
+            <td>配置项和配置文件读取</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
