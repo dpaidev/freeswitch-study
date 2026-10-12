@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreeSWITCH 学习成果库</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f9fc;
+      color: #111827;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #dfe7f1;
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+    .tag {
+      display: inline-block;
+      background: #eef3ff;
+      color: #244a7a;
+      border: 1px solid #cfe0ff;
+      border-radius: 6px;
+      padding: 4px 8px;
+      margin: 4px 6px 4px 0;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    ul, ol {
+      margin: 8px 0 0 20px;
+      line-height: 1.9;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>FreeSWITCH 学习成果库</h1>
+      <p>目标：掌握 FreeSWITCH 的源码结构、核心架构、数据结构、逻辑链、模块扩展方法，并准备实现自定义流式 ASR 模块。</p>
+    </div>
+
+    <div class="card">
+      <h2>核心对象</h2>
+      <div class="tag">switch.c</div>
+      <div class="tag">switch_core.c</div>
+      <div class="tag">switch_core_session.c</div>
+      <div class="tag">switch_channel.c</div>
+      <div class="tag">switch_core_media.c</div>
+      <div class="tag">switch_rtp.c</div>
+      <div class="tag">switch_event.c</div>
+      <div class="tag">switch_loadable_module.c</div>
+      <div class="tag">switch_core_asr.c</div>
+      <div class="tag">switch_ivr_async.c</div>
+    </div>
+
+    <div class="card">
+      <h2>学习重点</h2>
+      <ul>
+        <li>启动入口与生命周期</li>
+        <li>session 与 channel 结构</li>
+        <li>media 与 RTP 流处理</li>
+        <li>事件系统</li>
+        <li>模块加载与扩展</li>
+        <li>ASR 模块接口</li>
+        <li>数据结构关系</li>
+        <li>逻辑链与依赖流程</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>文件结构</h2>
+      <ol>
+        <li>01-概念网.html</li>
+        <li>02-逻辑链.html</li>
+        <li>03-逻辑网.html</li>
+        <li>04-数据结构清单.html</li>
+        <li>05-数据结构关系网.html</li>
+        <li>06-模块扩展地图.html</li>
+        <li>07-ASR模块开发蓝图.html</li>
+        <li>08-源码阅读顺序.html</li>
+        <li>09-学习日志.html</li>
+        <li>10-术语表.html</li>
+      </ol>
+    </div>
+  </div>
+</body>
+</html>
