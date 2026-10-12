@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>概念关系图 | FreeSWITCH</title>
+  <style>
+    body { margin: 0; padding: 20px; font-family: Arial, sans-serif; background: #f5f5f5; }
+    .container { max-width: 1400px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+    h1 { text-align: center; color: #333; }
+    svg { border: 1px solid #ddd; border-radius: 4px; display: block; margin: 20px auto; background: white; }
+    .note { color: #666; font-size: 12px; margin-top: 10px; padding: 10px; background: #f9f9f9; border-left: 3px solid #667eea; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>FreeSWITCH 核心概念关系图</h1>
+    
+    <svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+      <!-- 定义样式 -->
+      <defs>
+        <style>
+          .box { fill: #eef5ff; stroke: #667eea; stroke-width: 2; }
+          .text { font-family: Arial; font-size: 14px; font-weight: bold; }
+          .arrow { stroke: #999; stroke-width: 2; marker-end: url(#arrowhead); }
+          .label { font-size: 12px; fill: #666; }
+        </style>
+        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <polygon points="0 0, 10 3, 0 6" fill="#999" />
+        </marker>
+      </defs>
+
+      <!-- 层级标签 -->
+      <text x="10" y="25" font-size="16" font-weight="bold" fill="#333">启动层</text>
+      <text x="10" y="150" font-size="16" font-weight="bold" fill="#333">会话层</text>
+      <text x="10" y="280" font-size="16" font-weight="bold" fill="#333">媒体层</text>
+      <text x="10" y="450" font-size="16" font-weight="bold" fill="#333">模块层</text>
+      <text x="10" y="650" font-size="16" font-weight="bold" fill="#333">业务层</text>
+
+      <!-- 启动层 -->
+      <rect x="80" y="40" width="120" height="60" class="box" rx="8"/>
+      <text x="140" y="75" text-anchor="middle" class="text">main()</text>
+
+      <rect x="250" y="40" width="150" height="60" class="box" rx="8"/>
+      <text x="327" y="75" text-anchor="middle" class="text">switch_core_init</text>
+
+      <rect x="470" y="40" width="150" height="60" class="box" rx="8"/>
+      <text x="545" y="75" text-anchor="middle" class="text">runtime loop</text>
+
+      <!-- 启动层箭头 -->
+      <path d="M 200 70 L 250 70" class="arrow"/>
+      <path d="M 400 70 L 470 70" class="arrow"/>
+
+      <!-- 会话层 -->
+      <rect x="80" y="160" width="120" height="60" class="box" rx="8"/>
+      <text x="140" y="195" text-anchor="middle" class="text">session</text>
+
+      <rect x="250" y="160" width="120" height="60" class="box" rx="8"/>
+      <text x="310" y="195" text-anchor="middle" class="text">channel</text>
+
+      <rect x="420" y="160" width="120" height="60" class="box" rx="8"/>
+      <text x="480" y="195" text-anchor="middle" class="text">event</text>
+
+      <!-- 会话层箭头 -->
+      <path d="M 140 100 L 140 160" class="arrow"/>
+      <path d="M 200 180 L 250 180" class="arrow"/>
+      <path d="M 370 180 L 420 180" class="arrow"/>
+
+      <!-- 媒体层 -->
+      <rect x="80" y="290" width="100" height="60" class="box" rx="8"/>
+      <text x="130" y="325" text-anchor="middle" class="text">media</text>
+
+      <rect x="220" y="290" width="100" height="60" class="box" rx="8"/>
+      <text x="270" y="325" text-anchor="middle" class="text">codec</text>
+
+      <rect x="360" y="290" width="100" height="60" class="box" rx="8"/>
+      <text x="410" y="325" text-anchor="middle" class="text">resample</text>
+
+      <rect x="500" y="290" width="100" height="60" class="box" rx="8"/>
+      <text x="550" y="325" text-anchor="middle" class="text">RTP</text>
+
+      <rect x="640" y="290" width="120" height="60" class="box" rx="8"/>
+      <text x="700" y="325" text-anchor="middle" class="text">jitterbuffer</text>
+
+      <!-- 媒体层箭头 -->
+      <path d="M 130 220 L 130 290" class="arrow"/>
+      <path d="M 180 310 L 220 310" class="arrow"/>
+      <path d="M 320 310 L 360 310" class="arrow"/>
+      <path d="M 460 310 L 500 310" class="arrow"/>
+      <path d="M 600 310 L 640 310" class="arrow"/>
+
+      <!-- 模块层 -->
+      <rect x="80" y="460" width="150" height="60" class="box" rx="8"/>
+      <text x="157" y="495" text-anchor="middle" class="text">loadable_module</text>
+
+      <rect x="280" y="460" width="120" height="60" class="box" rx="8"/>
+      <text x="340" y="495" text-anchor="middle" class="text">ASR 接口</text>
+
+      <rect x="460" y="460" width="120" height="60" class="box" rx="8"/>
+      <text x="520" y="495" text-anchor="middle" class="text">ASR 模块</text>
+
+      <!-- 模块层箭头 -->
+      <path d="M 230 460 L 280 460" class="arrow"/>
+      <path d="M 400 490 L 460 490" class="arrow"/>
+
+      <!-- 业务层 -->
+      <rect x="80" y="660" width="120" height="60" class="box" rx="8"/>
+      <text x="140" y="695" text-anchor="middle" class="text">IVR</text>
+
+      <rect x="250" y="660" width="150" height="60" class="box" rx="8"/>
+      <text x="327" y="695" text-anchor="middle" class="text">业务逻辑</text>
+
+      <!-- 业务层箭头 -->
+      <path d="M 140 520 L 140 660" class="arrow"/>
+      <path d="M 340 520 L 327 660" class="arrow"/>
+      <path d="M 200 690 L 250 690" class="arrow"/>
+
+      <!-- 标注箭头标签 -->
+      <text x="165" y="65" class="label">初始化</text>
+      <text x="425" y="65" class="label">启动</text>
+      <text x="165" y="135" class="label">创建</text>
+      <text x="295" y="145" class="label">绑定</text>
+      <text x="380" y="145" class="label">触发</text>
+      <text x="155" y="260" class="label">处理</text>
+      <text x="290" y="260" class="label">编码</text>
+      <text x="420" y="260" class="label">重采</text>
+      <text x="530" y="260" class="label">传输</text>
+      <text x="155" y="430" class="label">加载</text>
+      <text x="320" y="430" class="label">调用</text>
+      <text x="150" y="630" class="label">接收</text>
+      <text x="270" y="630" class="label">处理</text>
+      <text x="180" y="710" class="label">处理</text>
+    </svg>
+
+    <div class="note">
+      <strong>说明：</strong><br/>
+      - 启动层：系统启动流程<br/>
+      - 会话层：业务会话管理<br/>
+      - 媒体层：音频处理管道<br/>
+      - 模块层：动态扩展模块<br/>
+      - 业务层：IVR和业务处理
+    </div>
+  </div>
+</body>
+</html>
